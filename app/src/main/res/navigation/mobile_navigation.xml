@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.tools.guitartools.ui.home.HomeFragment"
+        android:name="com.tools.guitartools.ui.fragment.TunerFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_tuner" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

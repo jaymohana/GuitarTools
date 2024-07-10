@@ -26,14 +26,8 @@ class GuitarTunerView(context: Context, attrs: AttributeSet?) : View(context, at
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-//        canvas.let {
-//            canvas.drawLine(5/2f, 5/2f,6/2f, 10/2f, paint)
-//        }
-
         canvas.let {
-
-
-            tunerLines2(canvas)
+            tunerLine(canvas)
 
             // Calculate starting position for drawing notes
             val startX = (width/7) + 25 / 2f
@@ -74,26 +68,20 @@ class GuitarTunerView(context: Context, attrs: AttributeSet?) : View(context, at
         canvas.drawLine(cx, 500/2f,cx, 1000/2f, paint)
     }
 
-    fun tunerLines2(canvas: Canvas) {
+    private fun tunerLine(canvas: Canvas) {
 
-        var cx = width/17/2f
+        // Vertical lines
+        val startX = 50/1f
+        canvas.drawLine(startX, 250/1f, startX, 500/1f, paint)
 
-        var bigLineCyStart = 500/2f
-        var bigLineCyEnd = 1000/2f
+        val middleX = (canvas.width/2)/1f
+        canvas.drawLine(middleX, 275/1f, middleX, 475/1f, paint)
 
-        var smallLineCyStart = 600/2f
-        var smallLineCyEnd = 900/2f
+        val endX = (width - 50)/1f
+        canvas.drawLine(endX, 250/1f, endX, 500/1f, paint)
 
-        for (i in 0 until 17) {
-            if ((i == 0) || (i == 8) || (i == 16)) {
-                canvas.drawLine(cx, bigLineCyStart, cx, bigLineCyEnd, paint)
-            }
-            else {
-                canvas.drawLine(cx, smallLineCyStart, cx, smallLineCyEnd, paint)
-            }
-            cx += width/17
-        }
-
+        // Horizontal line
+        canvas.drawLine(startX, 375/1f, endX, 375/1f, paint)
     }
 
 }
