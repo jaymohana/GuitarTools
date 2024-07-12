@@ -45,29 +45,6 @@ class GuitarTunerView(context: Context, attrs: AttributeSet?) : View(context, at
         }
     }
 
-    fun tunerLines(canvas: Canvas) {
-        var cx = 50/2f
-        canvas.drawLine(cx, 500/2f,cx, 1000/2f, paint)
-        for (i in 0 until 7) {
-            cx += 100/2f
-
-            canvas.drawLine(cx, 600/2f,cx, 900/2f, paint)
-
-        }
-
-        cx = 850/2f
-        canvas.drawLine(cx, 500/2f,cx, 1000/2f, paint)
-        for (i in 0 until 7) {
-            cx += 100/2f
-
-            canvas.drawLine(cx, 600/2f,cx, 900/2f, paint)
-
-        }
-
-        cx = 1650/2f
-        canvas.drawLine(cx, 500/2f,cx, 1000/2f, paint)
-    }
-
     private fun tunerLine(canvas: Canvas) {
 
         // Vertical lines
