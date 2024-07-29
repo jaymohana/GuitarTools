@@ -6,11 +6,36 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import com.tools.guitartools.ui.data.GuitarString
 
 class GuitarTunerView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
+    private lateinit var canvas: Canvas
+    private var pitchLinePosition: Float? = null
+    private var canvasWidth = 0
+    private var canvasHeight = 0
+    private var canvasCenterX = 0f
+    private var canvasCenterY = 0f
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        // Update the canvas size and center position
+        canvasWidth = w
+        canvasHeight = h
+        canvasCenterX = w / 2f
+        canvasCenterY = h / 2f
+    }
+
     private val paint = Paint().apply {
         color = Color.BLACK
+        strokeWidth = 3f
+        isAntiAlias = true
+        textAlign = Paint.Align.CENTER
+        textSize = 30f
+    }
+
+    private val paintGreen = Paint().apply {
+        color = Color.GREEN
         strokeWidth = 3f
         isAntiAlias = true
         textAlign = Paint.Align.CENTER
@@ -24,12 +49,14 @@ class GuitarTunerView(context: Context, attrs: AttributeSet?) : View(context, at
     private val noteNames = arrayOf("E", "A", "D", "G", "B", "E")
 
     override fun onDraw(canvas: Canvas) {
+        this.canvas = canvas
         super.onDraw(canvas)
 
         canvas.let {
             tunerLine(canvas)
 
             // Calculate starting position for drawing notes
+            // make its own method
             val startX = (width/7) + 25 / 2f
             var increment = 0;
             // Draw note circles and text
@@ -42,7 +69,13 @@ class GuitarTunerView(context: Context, attrs: AttributeSet?) : View(context, at
                 increment += width/7 - circleSpacing
 
             }
+
+            pitchLinePosition?.let {
+                canvas.drawLine(it, 235/1f, it, 535/1f, paintGreen)
+            }
         }
+
+
     }
 
     private fun tunerLine(canvas: Canvas) {
@@ -59,6 +92,26 @@ class GuitarTunerView(context: Context, attrs: AttributeSet?) : View(context, at
 
         // Horizontal line
         canvas.drawLine(startX, 375/1f, endX, 375/1f, paint)
+    }
+
+    fun updatePitchLine(frequency: Double?, string: GuitarString?) {
+
+        if (string != null) {
+            val startRange = string?.frequencyRange?.first
+            val endRange = string?.frequencyRange?.second
+            val perfectPitch = string?.perfectPitch
+
+            val ratio = (frequency?.minus(perfectPitch!!))?.div((endRange?.minus(startRange!!)!!))
+
+
+            val test = canvasCenterX + (ratio?.times((canvasWidth - 100))!!)
+            pitchLinePosition = test.toFloat()
+        } else {
+
+        }
+
+
+        invalidate()
     }
 
 }
