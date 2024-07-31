@@ -8,22 +8,18 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import androidx.core.app.ActivityCompat
 import be.tarsos.dsp.AudioDispatcher
-import be.tarsos.dsp.AudioEvent
 import be.tarsos.dsp.io.android.AudioDispatcherFactory
 import be.tarsos.dsp.pitch.PitchDetectionHandler
-import be.tarsos.dsp.pitch.PitchDetectionResult
 import be.tarsos.dsp.pitch.PitchProcessor
-import com.tools.guitartools.ui.data.GuitarString
-import com.tools.guitartools.ui.data.guitarStrings
-import kotlin.concurrent.thread
 
 class PitchDetection (private val context: Context) {
     private var dispatcher: AudioDispatcher? = null
+
     private fun checkPermissions(): Boolean {
         return ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun requestPermissions(activity: Activity) {
+    fun requestAudioRecordPermissions(activity: Activity) {
         ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.RECORD_AUDIO), 200)
     }
 
@@ -55,13 +51,4 @@ class PitchDetection (private val context: Context) {
 
         Thread(dispatcher, "Audio Dispatcher").start()
     }
-
-
-
-//    fun stopPitchDetection() {
-//        audioDispatcher?.stop()
-//        audioDispatcher = null
-//    }
-
-
 }

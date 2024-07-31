@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tools.guitartools.databinding.FragmentDashboardBinding
 
+// TODO: Potentially add dashboard
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
